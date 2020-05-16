@@ -18,23 +18,30 @@ public class Move : MonoBehaviour
     public bool isJumping;
     public bool isFalling;
     private GameObject currentHook;
+    public Vector3 restartPoint;
+    [SerializeField] private float fallingGravityMultiplex=2f;
     void Start()
     {
         cc=GetComponent<CharacterControl2D>();
         rb=GetComponent<Rigidbody2D>();
         animator=GetComponent<Animator>();
+        restartPoint=new Vector3(-15f,-1.64f,0f);//默认复活点
     }
 
     // Update is called once per frame
     void Update()
     {   
+        
         move=Input.GetAxis("Horizontal");
         jump=Input.GetButton("Jump");
-        Jump();
+        Jump(); //判定跳跃动画
+        BetterJump(); //优化跳跃曲线
         Run();
         ThrowHook();
         SightChanging();
         ChangeRope();
+        if (transform.position.y<-5){
+            Die();}
         if (isHanging){
             cc.isHanging=true;
             ConnectOtherSide();
@@ -43,6 +50,15 @@ public class Move : MonoBehaviour
     }
     void FixedUpdate(){
         cc.Move(move,jump);
+    }
+    void BetterJump(){
+        if (rb.velocity.y<0){
+            //下落状态重力大
+            rb.velocity+=Vector2.up*Physics2D.gravity*(fallingGravityMultiplex-1)*Time.deltaTime;
+        }
+        if (rb.velocity.y>0){
+            //上升状态 
+        }
     }
     void Run(){
         animator.SetFloat("Speed",Mathf.Abs(rb.velocity.x));
@@ -77,6 +93,7 @@ public class Move : MonoBehaviour
     void ThrowHook(){
         if (Input.GetMouseButtonDown(1)){
             if (!isHanging){
+                animator.SetTrigger("Throw");
                 destination=Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 currentHook=Instantiate(hook,transform.position,Quaternion.identity) as GameObject;
                 currentHook.GetComponent<ropeScript>().destination=destination;
@@ -89,11 +106,15 @@ public class Move : MonoBehaviour
             }
         }
     }
-    void Die(){
-        if (gameObject.GetComponent<Player>().currentHP<=0){
-            animator.SetBool("isDead",true);
-        }
-        else animator.SetBool("isDead",false);
+    public void Die(){
+        animator.SetTrigger("Die");
+            //在最近碰撞过的复活点复活
+            //StartCoroutine("Waits");
+        transform.position=restartPoint;
+    }
+    IEnumerator Waits(){
+        yield return new WaitForSeconds(2f);
+        transform.position=restartPoint;
     }
     void SightChanging(){
         //鼠标滚轮放大缩小视野

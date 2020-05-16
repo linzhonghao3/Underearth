@@ -26,8 +26,12 @@ public class bullet : MonoBehaviour
         }
        
         if (other.gameObject.tag=="BrokenRock"){
-            Destroy(other.gameObject);
-            other.GetComponent<rockboom>().Boom();
+            other.GetComponent<destoryRolling>().Damage();
+            Destroy(gameObject);
         }
+        if (other.gameObject.tag=="TNT"){
+            other.GetComponent<TNT>().Boom();
+        }
+        
     }
 }

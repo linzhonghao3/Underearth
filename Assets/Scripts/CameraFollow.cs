@@ -11,6 +11,16 @@ public class CameraFollow : MonoBehaviour
     public float boundarydown=-0.95f;
     Vector3 distance;
     public float speed=2f;
+    public float xDis=3f;
+    public float yDis=1.5f;
+    public Vector3 FixedCameraforWater;
+    public float xleftForplayerinSlopeArea;
+    public float xrightForplayerinSlopeArea;
+    public float xleftForplayerinGearArea;
+    public float xrightForplayerinGearArea;
+    public float xleftForplayerinwaterArea;
+    public float xrightForplayerinwaterArea;
+
 
     bool isMoving=false;
     public Vector3 nextPos;
@@ -20,7 +30,9 @@ public class CameraFollow : MonoBehaviour
     }
     void FixedUpdate()
     {   
-        Vector3 Pos=new Vector3(player.position.x+3,player.position.y+3.5f,-10);
+        SpecialArea();
+            //transform.position=FixedCameraforWater;
+        Vector3 Pos=new Vector3(player.position.x+xDis,player.position.y+yDis,-10);
         if (!(Pos.x>boundaryleft&&Pos.x<boundaryright)) {
             Pos.x=transform.position.x;
         }
@@ -61,5 +73,17 @@ public class CameraFollow : MonoBehaviour
             
         }
         
-    }  
+    }
+    void SpecialArea(){
+        if (xleftForplayerinwaterArea<=player.transform.position.x&&player.transform.position.x<=xrightForplayerinwaterArea){
+            transform.position=FixedCameraforWater;
+
+        }
+        else if (xleftForplayerinSlopeArea<player.transform.position.x&&player.transform.position.x<=xrightForplayerinSlopeArea){
+            boundaryup=5f;
+        }
+        else if (xleftForplayerinGearArea<player.transform.position.x&&player.transform.position.x<=xrightForplayerinGearArea){
+            boundaryup=9f;
+        }
+    } 
 }

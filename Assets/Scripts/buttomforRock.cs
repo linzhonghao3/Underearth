@@ -16,6 +16,7 @@ public class buttomforRock : MonoBehaviour
     {
         Collider2D player=Physics2D.OverlapCircle(transform.position,Radius,playerMask);
         if (player!=null){
+            Debug.Log("Rock coming");
             Instantiate(rollingRock,rockPoint.position,Quaternion.identity);
             Destroy(gameObject);
         }

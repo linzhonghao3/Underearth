@@ -39,11 +39,12 @@ public class ropeScript : MonoBehaviour
 
     void FixedUpdate()
     {   
+        
         //Hook飞向目标点      
         transform.position=Vector2.MoveTowards(transform.position,destination,throwingSpeed);
         HitCheck();
         //飞到目标点以后判断是否命中可钩物体
-        if((Vector2)transform.position==destination){
+        if(beInDestination()){
             if(onHit){
                 //如果命中 输出Hit 状态变为isConnectedOne，isHanging，连接目标点与Hook
                 Debug.Log("Hit");
@@ -52,6 +53,7 @@ public class ropeScript : MonoBehaviour
                 GameObject placeToHook=HitCheck().gameObject;
                 placeToHook.GetComponent<HingeJoint2D>().enabled=true;
                 placeToHook.GetComponent<HingeJoint2D>().connectedBody=gameObject.GetComponent<Rigidbody2D>();
+                //destination=transform.position;
             }
             else {
                 //如果没命中，输出Miss,保持原有状态，0.2s后摧毁物体，记为抛空
@@ -132,17 +134,22 @@ public class ropeScript : MonoBehaviour
         }            
     }
     void CreateNodesforOneEndSituation(){
-        if ((Vector2)transform.position!=destination){
+        if (!beInDestination()){
+            Debug.Log("I am here 1");
             if (Vector2.Distance(player.transform.position,lastNode.transform.position)>distance){
                 CreateNode();
             }
         }
         else if (!isDone){
+            Debug.Log("I am here 2");
             isDone=true;
             while(Vector2.Distance(player.transform.position,lastNode.transform.position)>distance){
                 CreateNode();
             }
             lastNode.GetComponent<HingeJoint2D>().connectedBody=player.GetComponent<Rigidbody2D>();
+        }
+        else {
+            Debug.Log("I am here 3");
         }
     }
     void CreateNodesforSecondEndSituation(){
@@ -179,5 +186,13 @@ public class ropeScript : MonoBehaviour
         lastNode=go;
         Nodes.Add(lastNode);
         vertexcount++;
+    }
+    bool beInDestination(){
+        float x=transform.position.x;
+        float y=transform.position.y;
+        if (Mathf.Abs(x-destination.x)<0.02f&&Mathf.Abs(y-destination.y)<0.02f){
+            return true;
+        }
+        else return false;
     }
 }

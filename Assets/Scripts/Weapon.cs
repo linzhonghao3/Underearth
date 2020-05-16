@@ -48,7 +48,7 @@ public class Weapon : MonoBehaviour
         GameObject myBullet=Instantiate(Bullet,shootpoint.position,Quaternion.identity) as GameObject;
         myBullet.GetComponent<Rigidbody2D>().velocity=(mousePos-transform.position).normalized*BulletSpeed;
         myBullet.transform.eulerAngles=new Vector3(0,0,fireAngle);
-        StartCoroutine(WaitShootEnd());
+        //StartCoroutine(WaitShootEnd());
 
         
     }
