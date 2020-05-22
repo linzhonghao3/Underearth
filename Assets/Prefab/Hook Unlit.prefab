@@ -168,7 +168,7 @@ MonoBehaviour:
   Nodes: []
   GroundCheckforHook: {fileID: 6032561975491600116}
   throwingSpeed: 0.5
-  distance: 0.2
+  distance: 0.4
   mousePos: {x: 0, y: 0, z: 0}
   throwHorizontalSpeed: 0
   throwVerticalSpeed: 0

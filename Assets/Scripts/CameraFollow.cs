@@ -20,6 +20,10 @@ public class CameraFollow : MonoBehaviour
     public float xrightForplayerinGearArea;
     public float xleftForplayerinwaterArea;
     public float xrightForplayerinwaterArea;
+    public float xleftForplayerinBOSSArea;
+    public float xrightForplayerinBOSSArea;
+    public float xleftForplayerinseesawArea;
+    public float xrightForplayerinseesawArea;
 
 
     bool isMoving=false;
@@ -77,13 +81,30 @@ public class CameraFollow : MonoBehaviour
     void SpecialArea(){
         if (xleftForplayerinwaterArea<=player.transform.position.x&&player.transform.position.x<=xrightForplayerinwaterArea){
             transform.position=FixedCameraforWater;
-
+        }
+        else if (xleftForplayerinBOSSArea<=player.transform.position.x&&player.transform.position.x<=xrightForplayerinBOSSArea){
+            boundaryleft=232f;
+            boundaryright=233.5f;
         }
         else if (xleftForplayerinSlopeArea<player.transform.position.x&&player.transform.position.x<=xrightForplayerinSlopeArea){
-            boundaryup=5f;
+            boundaryup=3.7f;
         }
         else if (xleftForplayerinGearArea<player.transform.position.x&&player.transform.position.x<=xrightForplayerinGearArea){
             boundaryup=9f;
+        }
+        else if (xleftForplayerinseesawArea<=player.transform.position.x&&xrightForplayerinseesawArea>=player.transform.position.x){
+            boundaryup=15f;
+        }
+    }
+    public IEnumerator CameraShake (float maxTime,float amount){
+        Vector3 originalPos=transform.localPosition;
+        float shakeTime=0f;
+        while (shakeTime<maxTime){
+            float x=Random.Range(-1f,1f)*amount;
+            float y=Random.Range(-1f,1f)*amount;
+            transform.localPosition=new Vector3(originalPos.x+x,originalPos.y+y,originalPos.z);
+            shakeTime+=Time.deltaTime;
+            yield return new WaitForSeconds(0f);
         }
     } 
 }

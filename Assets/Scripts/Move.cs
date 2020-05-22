@@ -34,6 +34,7 @@ public class Move : MonoBehaviour
         
         move=Input.GetAxis("Horizontal");
         jump=Input.GetButton("Jump");
+        if (jump) this.gameObject.transform.Find("JumpVoice").GetComponent<AudioSource>().Play();
         Jump(); //判定跳跃动画
         BetterJump(); //优化跳跃曲线
         Run();
@@ -62,6 +63,9 @@ public class Move : MonoBehaviour
     }
     void Run(){
         animator.SetFloat("Speed",Mathf.Abs(rb.velocity.x));
+        /*if (Mathf.Abs(rb.velocity.x)>0.1f&&!isHanging&&!isJumping&&!isFalling){
+            this.gameObject.transform.Find("RunVoice").GetComponent<AudioSource>().Play();
+        }*/
     }
     void Jump(){
         if (rb.velocity.y>0.02){
@@ -108,13 +112,19 @@ public class Move : MonoBehaviour
     }
     public void Die(){
         animator.SetTrigger("Die");
+        gameObject.GetComponent<Move>().enabled=false;
             //在最近碰撞过的复活点复活
-            //StartCoroutine("Waits");
-        transform.position=restartPoint;
+        StartCoroutine("Waits");
+        if (GameObject.FindGameObjectWithTag("Hook")!=null){
+            Destroy(GameObject.FindGameObjectWithTag("Hook"));
+            isHanging=false;
+            gameObject.GetComponent<CharacterControl2D>().isHanging=false;
+        }
     }
     IEnumerator Waits(){
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         transform.position=restartPoint;
+        gameObject.GetComponent<Move>().enabled=true;
     }
     void SightChanging(){
         //鼠标滚轮放大缩小视野

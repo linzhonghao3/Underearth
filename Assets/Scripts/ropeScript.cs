@@ -66,13 +66,11 @@ public class ropeScript : MonoBehaviour
         if (!isConnectedTwo){
             //若不是已经连接一端的情况（包括两种：抛出命中和抛空）
             //使用第一种生成node的方式（一端是玩家一端是目标点）
-            Debug.Log("First Situation!");
             CreateNodesforOneEndSituation();
             RenderLine();
         }
         else {
             //若一端已经连接，使用第二种生成node的方式
-            Debug.Log("Second Situation!");
             CreateNodesforSecondEndSituation();
             RenderLine();
         }
@@ -127,21 +125,17 @@ public class ropeScript : MonoBehaviour
             for (int j=Nodes.Count-1;j>0;j--){
                 Destroy(Nodes[j]);
                 Nodes.Remove(Nodes[j].gameObject);
-                Debug.Log("isRemoving"+j);
             }
-            Debug.Log("Number of Nodes:"+Nodes.Count);
             player.GetComponent<Move>().isHanging=false;
         }            
     }
     void CreateNodesforOneEndSituation(){
         if (!beInDestination()){
-            Debug.Log("I am here 1");
             if (Vector2.Distance(player.transform.position,lastNode.transform.position)>distance){
                 CreateNode();
             }
         }
         else if (!isDone){
-            Debug.Log("I am here 2");
             isDone=true;
             while(Vector2.Distance(player.transform.position,lastNode.transform.position)>distance){
                 CreateNode();
@@ -149,7 +143,6 @@ public class ropeScript : MonoBehaviour
             lastNode.GetComponent<HingeJoint2D>().connectedBody=player.GetComponent<Rigidbody2D>();
         }
         else {
-            Debug.Log("I am here 3");
         }
     }
     void CreateNodesforSecondEndSituation(){

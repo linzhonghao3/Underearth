@@ -22,7 +22,7 @@ public class gearRolling : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other){
         if (other.gameObject.tag=="Player"){
             Debug.Log("Kill by gear");
-            other.gameObject.GetComponent<Player>().Damage(100);
+            other.gameObject.GetComponent<Move>().Die();
         }
         else return;
     }

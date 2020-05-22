@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
             transform.gameObject.GetComponent<Move>().enabled=false;
             animator.SetBool("isJumping",false);
             animator.SetBool("isFalling",false);
-            animator.SetBool("isDead",true);
+            animator.SetTrigger("Die");
             Invoke("Restart",2);}
         
     }
