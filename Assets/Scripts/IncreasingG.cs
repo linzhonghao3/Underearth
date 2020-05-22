@@ -39,5 +39,8 @@ public class IncreasingG : MonoBehaviour
         if (timeonGround>1f){
             rb.mass=0.5f;
         }
+        if (transform.position.x>153f){
+            transform.position=new Vector3(150f,transform.position.y,transform.position.z);
+        }
     }
 }

@@ -18,7 +18,7 @@ public class buttomforRock : MonoBehaviour
         if (player!=null){
             Debug.Log("Rock coming");
             Instantiate(rollingRock,rockPoint.position,Quaternion.identity);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

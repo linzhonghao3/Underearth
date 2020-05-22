@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BOSS : MonoBehaviour
-{
+
+{   
+    public GameObject BOSSpanel;
+    public GameObject Playerpanel;
+    public GameObject EndTextpanel;
     public My_healthbar hb;
     public int maxHP=500;
     public int currentHP;   
@@ -32,6 +37,7 @@ public class BOSS : MonoBehaviour
     public Transform leftHandPoint;
     public float shortAttackRadius=2f;
     public Transform eyePos;
+    private Vector3 PrePos;
     
     // Start is called before the first frame update
     void Start()
@@ -41,9 +47,16 @@ public class BOSS : MonoBehaviour
         currentHP=maxHP;
         target=GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         animator=this.GetComponent<Animator>();
+        PrePos=this.transform.position;
         }
 
-    // Update is called once per frame
+    
+    public void Restart(){
+        currentHP=maxHP;
+        hb.SetMaxValue(maxHP);
+        hb.SetHeal(currentHP);
+        transform.position=PrePos;
+    }
     void FixedUpdate()
     {   if (transform.localScale.x<0){
             front=new Vector3(-1,0,0);
@@ -127,16 +140,24 @@ public class BOSS : MonoBehaviour
     public void TakeDamage(int damage){
         currentHP-=damage;
         if (currentHP<=0){
-            Destroy(gameObject);
+            animator.SetTrigger("Die");
+            StartCoroutine(waits());
+            BOSSpanel.SetActive(false);
+            Playerpanel.SetActive(false);          
+
         }
         hb.SetHeal(currentHP);
-
         //受到伤害且角色在BOSS背后就转头
         if (transform.localScale.x<0&&target.position.x>transform.position.x||
             transform.localScale.x>0&&target.position.x<transform.position.x){
                 transform.localScale=new Vector3(transform.localScale.x*-1,transform.localScale.y,transform.localScale.z);
         }
         
+    }
+    IEnumerator waits(){
+        yield return new WaitForSeconds(6f);
+        EndTextpanel.SetActive(true);
+        Destroy(gameObject);
     }
     public void CliffTest(Vector3 front){
         Vector3 nowPos=transform.position+new Vector3(0,1f,0);

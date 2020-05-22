@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogController : MonoBehaviour
 {
     public string [] cowboyself={"哎~又是在地下城无聊的一天，真希望能出去走走啊。","先去看看老大有什么安排吧。",
     "主角：前面不太好过啊，还好我带了绳子！"};
-    public string [] hint={"（提示：A和D键控制人物左右移动，空格跳跃。）","(提示：靠近按W与NPC对话)","（提示：鼠标右键点击可交互元件即可连上绳索。)",
+    public string [] hint={"（提示：A和D键控制人物左右移动，空格跳跃。）","(提示：靠近按W与NPC对话)","（提示：鼠标右键点击可交互元件即可连上绳索造桥行走。)",
     "(连上绳索后按K键可将两个可交互元件相连)","(提示：连接绳索后按右键取消连接)"};
     public string [] BF={"厂长：……我提过这是城里的规定，没有特殊情况不能去警戒区的。",
     "奶爸：厂长，我知道。但是…这孩子这几天也不知道怎么了",
@@ -148,6 +149,8 @@ public class DialogController : MonoBehaviour
                 if (i4>=plot.Length) {
                     haveDonefourthDialog=true;
                     GiveBackControl();
+                    //SceneManager.LoadScene(1);
+                    
                 }       
             }   
         }

@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BOSSfight : MonoBehaviour
 {
     public GameObject bossPrefab;
+    public GameObject BOSSpanel;
+    public GameObject Playerpanel;
     private Transform playerPos;
     bool beginBossFight;
     void Start()
@@ -19,6 +22,10 @@ public class BOSSfight : MonoBehaviour
             bossPrefab.SetActive(true);
             transform.position=new Vector3(transform.position.x,23.54f,0f);
             beginBossFight=true;
+            BOSSpanel.SetActive(true);
+            Playerpanel.SetActive(true);
+            Camera.main.GetComponent<AudioSource>().enabled=false;
+            bossPrefab.GetComponent<AudioSource>().Play();
         }
     }
 }

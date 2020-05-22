@@ -24,7 +24,11 @@ public class Player : MonoBehaviour
             animator.SetBool("isJumping",false);
             animator.SetBool("isFalling",false);
             animator.SetTrigger("Die");
-            Invoke("Restart",2);}
+            gameObject.GetComponent<Move>().Die();
+            currentHP=maxHp;
+            healthbar.SetHeal(currentHP);
+            GameObject.FindGameObjectWithTag("BOSS").GetComponent<BOSS>().Restart();
+        }
         
     }
     void Restart(){

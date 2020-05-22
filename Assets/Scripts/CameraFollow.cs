@@ -24,6 +24,9 @@ public class CameraFollow : MonoBehaviour
     public float xrightForplayerinBOSSArea;
     public float xleftForplayerinseesawArea;
     public float xrightForplayerinseesawArea;
+    public float xleftForplayerinDiCiArea;
+    public float xrightForplayerinDiCiArea;
+    bool firstIn=true;
 
 
     bool isMoving=false;
@@ -85,6 +88,11 @@ public class CameraFollow : MonoBehaviour
         else if (xleftForplayerinBOSSArea<=player.transform.position.x&&player.transform.position.x<=xrightForplayerinBOSSArea){
             boundaryleft=232f;
             boundaryright=233.5f;
+            boundaryup=25.27f;
+            if (firstIn){
+                Camera.main.transform.position=new Vector3(232.8f,22.85f,-10f);
+                firstIn=false;
+            }
         }
         else if (xleftForplayerinSlopeArea<player.transform.position.x&&player.transform.position.x<=xrightForplayerinSlopeArea){
             boundaryup=3.7f;
@@ -94,6 +102,9 @@ public class CameraFollow : MonoBehaviour
         }
         else if (xleftForplayerinseesawArea<=player.transform.position.x&&xrightForplayerinseesawArea>=player.transform.position.x){
             boundaryup=15f;
+        }
+        else if (xleftForplayerinDiCiArea<=player.transform.position.x&&xrightForplayerinDiCiArea>=player.transform.position.x){
+            boundaryup=22.5f;
         }
     }
     public IEnumerator CameraShake (float maxTime,float amount){
