@@ -32,6 +32,7 @@ public class CameraFollow : MonoBehaviour
     bool isMoving=false;
     public Vector3 nextPos;
     void Start(){
+        Time.timeScale = 1.0f;
         player=GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         nextPos=transform.position;
     }
