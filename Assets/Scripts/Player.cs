@@ -23,8 +23,12 @@ public class Player : MonoBehaviour
             transform.gameObject.GetComponent<Move>().enabled=false;
             animator.SetBool("isJumping",false);
             animator.SetBool("isFalling",false);
-            animator.SetBool("isDead",true);
-            Invoke("Restart",2);}
+            animator.SetTrigger("Die");
+            gameObject.GetComponent<Move>().Die();
+            currentHP=maxHp;
+            healthbar.SetHeal(currentHP);
+            GameObject.FindGameObjectWithTag("BOSS").GetComponent<BOSS>().Restart();
+        }
         
     }
     void Restart(){

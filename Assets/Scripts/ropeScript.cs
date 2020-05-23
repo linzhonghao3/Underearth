@@ -39,11 +39,12 @@ public class ropeScript : MonoBehaviour
 
     void FixedUpdate()
     {   
+        
         //Hook飞向目标点      
         transform.position=Vector2.MoveTowards(transform.position,destination,throwingSpeed);
         HitCheck();
         //飞到目标点以后判断是否命中可钩物体
-        if((Vector2)transform.position==destination){
+        if(beInDestination()){
             if(onHit){
                 //如果命中 输出Hit 状态变为isConnectedOne，isHanging，连接目标点与Hook
                 Debug.Log("Hit");
@@ -52,6 +53,7 @@ public class ropeScript : MonoBehaviour
                 GameObject placeToHook=HitCheck().gameObject;
                 placeToHook.GetComponent<HingeJoint2D>().enabled=true;
                 placeToHook.GetComponent<HingeJoint2D>().connectedBody=gameObject.GetComponent<Rigidbody2D>();
+                //destination=transform.position;
             }
             else {
                 //如果没命中，输出Miss,保持原有状态，0.2s后摧毁物体，记为抛空
@@ -64,13 +66,11 @@ public class ropeScript : MonoBehaviour
         if (!isConnectedTwo){
             //若不是已经连接一端的情况（包括两种：抛出命中和抛空）
             //使用第一种生成node的方式（一端是玩家一端是目标点）
-            Debug.Log("First Situation!");
             CreateNodesforOneEndSituation();
             RenderLine();
         }
         else {
             //若一端已经连接，使用第二种生成node的方式
-            Debug.Log("Second Situation!");
             CreateNodesforSecondEndSituation();
             RenderLine();
         }
@@ -125,14 +125,12 @@ public class ropeScript : MonoBehaviour
             for (int j=Nodes.Count-1;j>0;j--){
                 Destroy(Nodes[j]);
                 Nodes.Remove(Nodes[j].gameObject);
-                Debug.Log("isRemoving"+j);
             }
-            Debug.Log("Number of Nodes:"+Nodes.Count);
             player.GetComponent<Move>().isHanging=false;
         }            
     }
     void CreateNodesforOneEndSituation(){
-        if ((Vector2)transform.position!=destination){
+        if (!beInDestination()){
             if (Vector2.Distance(player.transform.position,lastNode.transform.position)>distance){
                 CreateNode();
             }
@@ -143,6 +141,8 @@ public class ropeScript : MonoBehaviour
                 CreateNode();
             }
             lastNode.GetComponent<HingeJoint2D>().connectedBody=player.GetComponent<Rigidbody2D>();
+        }
+        else {
         }
     }
     void CreateNodesforSecondEndSituation(){
@@ -179,5 +179,13 @@ public class ropeScript : MonoBehaviour
         lastNode=go;
         Nodes.Add(lastNode);
         vertexcount++;
+    }
+    bool beInDestination(){
+        float x=transform.position.x;
+        float y=transform.position.y;
+        if (Mathf.Abs(x-destination.x)<0.02f&&Mathf.Abs(y-destination.y)<0.02f){
+            return true;
+        }
+        else return false;
     }
 }

@@ -22,6 +22,6 @@ public class BrokenBridge : MonoBehaviour
     }
     IEnumerator Break(){
         yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

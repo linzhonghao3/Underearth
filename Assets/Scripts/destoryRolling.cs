@@ -11,11 +11,11 @@ public class destoryRolling : MonoBehaviour
     }
     void Update()
     {
-        if (transform.position.x<1|| currentHP<=0){
+        if (transform.position.y<-5|| currentHP<=0){
             Destroy(gameObject);
         }
     }
-    void Damage(){
+    public void Damage(){
         currentHP-=20;
     }
 }

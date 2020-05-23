@@ -11,6 +11,23 @@ public class CameraFollow : MonoBehaviour
     public float boundarydown=-0.95f;
     Vector3 distance;
     public float speed=2f;
+    public float xDis=3f;
+    public float yDis=1.5f;
+    public Vector3 FixedCameraforWater;
+    public float xleftForplayerinSlopeArea;
+    public float xrightForplayerinSlopeArea;
+    public float xleftForplayerinGearArea;
+    public float xrightForplayerinGearArea;
+    public float xleftForplayerinwaterArea;
+    public float xrightForplayerinwaterArea;
+    public float xleftForplayerinBOSSArea;
+    public float xrightForplayerinBOSSArea;
+    public float xleftForplayerinseesawArea;
+    public float xrightForplayerinseesawArea;
+    public float xleftForplayerinDiCiArea;
+    public float xrightForplayerinDiCiArea;
+    bool firstIn=true;
+
 
     bool isMoving=false;
     public Vector3 nextPos;
@@ -20,7 +37,9 @@ public class CameraFollow : MonoBehaviour
     }
     void FixedUpdate()
     {   
-        Vector3 Pos=new Vector3(player.position.x+3,player.position.y+3.5f,-10);
+        SpecialArea();
+            //transform.position=FixedCameraforWater;
+        Vector3 Pos=new Vector3(player.position.x+xDis,player.position.y+yDis,-10);
         if (!(Pos.x>boundaryleft&&Pos.x<boundaryright)) {
             Pos.x=transform.position.x;
         }
@@ -61,5 +80,42 @@ public class CameraFollow : MonoBehaviour
             
         }
         
-    }  
+    }
+    void SpecialArea(){
+        if (xleftForplayerinwaterArea<=player.transform.position.x&&player.transform.position.x<=xrightForplayerinwaterArea){
+            transform.position=FixedCameraforWater;
+        }
+        else if (xleftForplayerinBOSSArea<=player.transform.position.x&&player.transform.position.x<=xrightForplayerinBOSSArea){
+            boundaryleft=232f;
+            boundaryright=233.5f;
+            boundaryup=25.27f;
+            if (firstIn){
+                Camera.main.transform.position=new Vector3(232.8f,22.85f,-10f);
+                firstIn=false;
+            }
+        }
+        else if (xleftForplayerinSlopeArea<player.transform.position.x&&player.transform.position.x<=xrightForplayerinSlopeArea){
+            boundaryup=3.7f;
+        }
+        else if (xleftForplayerinGearArea<player.transform.position.x&&player.transform.position.x<=xrightForplayerinGearArea){
+            boundaryup=9f;
+        }
+        else if (xleftForplayerinseesawArea<=player.transform.position.x&&xrightForplayerinseesawArea>=player.transform.position.x){
+            boundaryup=15f;
+        }
+        else if (xleftForplayerinDiCiArea<=player.transform.position.x&&xrightForplayerinDiCiArea>=player.transform.position.x){
+            boundaryup=22.5f;
+        }
+    }
+    public IEnumerator CameraShake (float maxTime,float amount){
+        Vector3 originalPos=transform.localPosition;
+        float shakeTime=0f;
+        while (shakeTime<maxTime){
+            float x=Random.Range(-1f,1f)*amount;
+            float y=Random.Range(-1f,1f)*amount;
+            transform.localPosition=new Vector3(originalPos.x+x,originalPos.y+y,originalPos.z);
+            shakeTime+=Time.deltaTime;
+            yield return new WaitForSeconds(0f);
+        }
+    } 
 }
