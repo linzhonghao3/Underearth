@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UnderGround.unity
     guid: c7f99b03ff93ebb49a8be343bdeef6f9
+  - enabled: 1
+    path: Assets/Scenes/KengDao.unity
+    guid: ea5762e19a85f4b478139dbd7b17b6cb
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 49f5cfb705002a84a9d07b3686b6e1b8
   m_configObjects: {}
