@@ -6,9 +6,11 @@ using UnityEngine;
 public class fireworm : MonoBehaviour
 {
     public GameObject firewormUI;
+    bool hasTouched;
 
     void OnTriggerEnter2D(Collider2D other){
-        if(other.gameObject.tag=="Player"){
+        if(other.gameObject.tag=="Player"&&!hasTouched){
+            hasTouched=true;
             firewormUI.SetActive(true);
             other.gameObject.GetComponent<Collect>().fireWormNumber+=1;
             StartCoroutine(waits());

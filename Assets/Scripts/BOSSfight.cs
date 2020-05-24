@@ -18,7 +18,7 @@ public class BOSSfight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   playerPos=GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        if (playerPos.position.x>transform.position.x+10f&&!beginBossFight){
+        if (playerPos.position.x>transform.position.x+2f&&!beginBossFight){
             bossPrefab.SetActive(true);
             transform.position=new Vector3(transform.position.x,23.54f,0f);
             beginBossFight=true;

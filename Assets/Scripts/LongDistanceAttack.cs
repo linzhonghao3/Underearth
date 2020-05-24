@@ -47,7 +47,7 @@ public class LongDistanceAttack : StateMachineBehaviour
                 player.GetComponent<Player>().Damage(20);
                 hasDamaged=true;
             }        
-            if (targetPos.x>=targetRange.x+10f) return;
+            if (targetPos.x>=targetRange.x+10f||targetPos.x<=targetRange.x-10f) return;
             else targetPos+= 0.105f*front;
         }    
     }

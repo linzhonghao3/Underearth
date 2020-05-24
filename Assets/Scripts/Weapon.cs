@@ -20,6 +20,9 @@ public class Weapon : MonoBehaviour
     private CharacterControl2D characterControl2D;
     public int bulletCount;
     public Text bulletNumText;
+    bool haveNotFinishedChaning;
+    public float fireAngle;
+    public Vector3 mousePos;
     // Update is called once per frame
     void Start(){
         animator=GetComponent<Animator>();
@@ -34,30 +37,35 @@ public class Weapon : MonoBehaviour
     {   
         if (bulletNumText!=null){
             bulletNumText.text=bulletCount.ToString();}
-        if (bulletCount<=0){
-            bulletCount=6;
-            nextFireBig=0;    
+        if (bulletCount<=0&&!haveNotFinishedChaning){
+            bulletCount=0;
+            haveNotFinishedChaning=true;
+            StartCoroutine(WaitsTochangeBullet());  
         }
-        nextFireBig+=Time.deltaTime;
         nextFire+=Time.deltaTime;
-        if (Input.GetMouseButtonDown(0)&&(nextFire>fireRate)&&(nextFireBig>fireRateBig)){
+        if (Input.GetMouseButtonDown(0)&&(nextFire>fireRate)&&bulletCount>0){
             animator.SetTrigger("Shoot");
             isShooting=true;
             Shoot();
 
         }
     }
+    IEnumerator WaitsTochangeBullet(){
+        yield return new WaitForSeconds(2f);
+        bulletCount=6;
+        haveNotFinishedChaning=false;
+    }
     void Shoot(){
-        Vector3 mousePos=Input.mousePosition;
+        mousePos=Input.mousePosition;
         mousePos=Camera.main.ScreenToWorldPoint(mousePos);
         mousePos.z=0;
-        float fireAngle=Vector2.Angle(mousePos-transform.position,Vector2.up);
-        if (mousePos.x>transform.position.x){
-            fireAngle-=fireAngle;
+        fireAngle=Vector2.Angle(mousePos-transform.position,Vector2.right);
+        if (mousePos.y<transform.position.y){
+            fireAngle-=2*fireAngle;
         }
         nextFire=0;
         
-        GameObject myBullet=Instantiate(Bullet,shootpoint.position,Quaternion.identity) as GameObject;
+        GameObject myBullet=Instantiate(Bullet,shootpoint.position,Quaternion.Euler(0f,0f,fireAngle)) as GameObject;
         myBullet.GetComponent<Rigidbody2D>().velocity=(mousePos-transform.position).normalized*BulletSpeed;
         myBullet.transform.eulerAngles=new Vector3(0,0,fireAngle);
         bulletCount-=1;  

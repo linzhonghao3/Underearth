@@ -6,6 +6,7 @@ public class CharacterControl2D : MonoBehaviour
     public float jumpForce = 450f;                          // 弹跳力
     public bool canAirControl = false;                      // 在空中时，是否能控制
     public LayerMask groundMask;                            // 定义哪一个Layer是地面
+    public LayerMask BOSSMask;
     public Transform m_GroundCheck;                         // 用于判定地面的空物体
     const float k_GroundedRadius = .1f; // 用于检测地面的小圆形的半径
     public bool m_Grounded;            // 当前是否在地面上
@@ -46,7 +47,7 @@ public class CharacterControl2D : MonoBehaviour
                         OnLandEvent.Invoke();
                 }
             }
-            Collider2D[] colliders2 = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, 13);//13是boss躯干的层级
+            Collider2D[] colliders2 = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius+0.2f, BOSSMask);//13是boss躯干的层级
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)

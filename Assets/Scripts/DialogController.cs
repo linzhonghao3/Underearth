@@ -117,13 +117,24 @@ public class DialogController : MonoBehaviour
             HintText.enabled=true;
         }
         
-        if (playerPos.x>=41f&&playerPos.x<=45f&&playerPos.y>=-1f){
+        if (playerPos.x>=42f&&playerPos.x<=45f&&playerPos.y>=-1f){
             //过桥后，提示如何拆桥
             if (GameObject.FindGameObjectWithTag("Hook")!=null){
                 HintText.text=hint[4];
                 HintText.enabled=true;
+                player.GetComponent<Move>().enabled=false;
+                rigidbody.velocity=new Vector2(0f,rigidbody.velocity.y);
+                player.GetComponent<Animator>().SetFloat("Speed",0);
+                if (Input.GetMouseButtonDown(1)){
+                    GiveBackControl();
+                    Destroy(GameObject.FindGameObjectWithTag("Hook"));
+                    player.GetComponent<Move>().isHanging=false;
+                    player.GetComponent<CharacterControl2D>().isHanging=false;
+        }
             }
-            else HintText.enabled=false;
+            else {
+                HintText.enabled=false;
+            }
             
         }
         
@@ -149,7 +160,7 @@ public class DialogController : MonoBehaviour
                 if (i4>=plot.Length) {
                     haveDonefourthDialog=true;
                     GiveBackControl();
-                    //SceneManager.LoadScene(1);
+                    SceneManager.LoadScene(2);
                     
                 }       
             }   

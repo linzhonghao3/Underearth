@@ -10,7 +10,7 @@ public class BOSS : MonoBehaviour
     public GameObject Playerpanel;
     public GameObject EndTextpanel;
     public My_healthbar hb;
-    public int maxHP=500;
+    public int maxHP=1000;
     public int currentHP;   
     [SerializeField]
     public Transform target; 
@@ -38,6 +38,7 @@ public class BOSS : MonoBehaviour
     public float shortAttackRadius=2f;
     public Transform eyePos;
     private Vector3 PrePos;
+    public GameObject BossRestart;
     
     // Start is called before the first frame update
     void Start()
@@ -117,18 +118,19 @@ public class BOSS : MonoBehaviour
             Physics2D.Raycast(Eyeview,front+22*Down,distance[18],LayerMask.GetMask("Player"))){
             moveSpeed=3f;
             isChasing=true;
-            if (Mathf.Abs(target.transform.position.x-transform.position.x)<3f){
-                animator.SetTrigger("ShortDistance");
-            }
-            else if (Mathf.Abs(target.transform.position.x-transform.position.x)>=6f&&nextLong>=CDforLong){
+            if (nextLong>=CDforLong){
                 nextLong=0f;
                 animator.SetTrigger("LongDistance");
             }
-            else if (Mathf.Abs(target.transform.position.x-transform.position.x)>=3f&&
-                Mathf.Abs(target.transform.position.x-transform.position.x)<6f&&nextMid>=CDforMid){
+            else if (nextMid>=CDforMid){
                     nextMid=0f;
                     animator.SetTrigger("MidDistance");
                 }
+            
+            if (Mathf.Abs(target.transform.position.x-transform.position.x)<3f){
+                animator.SetTrigger("ShortDistance");
+            }
+            
             
         }
         else {
@@ -142,8 +144,10 @@ public class BOSS : MonoBehaviour
         if (currentHP<=0){
             animator.SetTrigger("Die");
             StartCoroutine(waits());
+            BossRestart.SetActive(false);
             BOSSpanel.SetActive(false);
-            Playerpanel.SetActive(false);          
+            Playerpanel.SetActive(false);
+                      
 
         }
         hb.SetHeal(currentHP);

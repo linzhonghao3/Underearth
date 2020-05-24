@@ -12,7 +12,7 @@ public class Move : MonoBehaviour
     // Start is called before the first frame update
 
     public float horizontalForce=300f;
-    float move;
+    public float move;
     bool jump;
     public bool isHanging;
     public bool isJumping;
@@ -34,14 +34,14 @@ public class Move : MonoBehaviour
         
         move=Input.GetAxis("Horizontal");
         jump=Input.GetButton("Jump");
-        if (jump) this.gameObject.transform.Find("JumpVoice").GetComponent<AudioSource>().Play();
+        if (Input.GetButtonDown("Jump")) this.gameObject.transform.Find("JumpVoice").GetComponent<AudioSource>().Play();
         Jump(); //判定跳跃动画
         BetterJump(); //优化跳跃曲线
         Run();
         ThrowHook();
         SightChanging();
         ChangeRope();
-        if (transform.position.y<-5){
+        if (transform.position.y<-5||Input.GetKeyDown(KeyCode.I)){
             Die();}
         if (isHanging){
             cc.isHanging=true;

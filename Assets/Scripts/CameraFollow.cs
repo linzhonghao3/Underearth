@@ -87,8 +87,8 @@ public class CameraFollow : MonoBehaviour
             transform.position=FixedCameraforWater;
         }
         else if (xleftForplayerinBOSSArea<=player.transform.position.x&&player.transform.position.x<=xrightForplayerinBOSSArea){
-            boundaryleft=232f;
-            boundaryright=233.5f;
+            boundaryleft=229f;
+            boundaryright=237f;
             boundaryup=25.27f;
             if (firstIn){
                 Camera.main.transform.position=new Vector3(232.8f,22.85f,-10f);

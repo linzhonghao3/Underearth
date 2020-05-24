@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 36869015}
   - component: {fileID: 36869014}
   - component: {fileID: 36869013}
+  - component: {fileID: 36869016}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -204,6 +205,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &36869016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36869012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &45187303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,7 +1482,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 132}
+  m_AnchoredPosition: {x: 0, y: 170}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &901653731
@@ -3037,7 +3069,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 270.6, y: 159.7}
-  m_SizeDelta: {x: 57.8, y: 57.8}
+  m_SizeDelta: {x: 57.799988, y: 57.799988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1842058921
 MonoBehaviour:
@@ -3285,15 +3317,15 @@ RectTransform:
   m_GameObject: {fileID: 2142469096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 904564986}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 75}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: -35}
+  m_SizeDelta: {x: 1200, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2142469098
 MonoBehaviour:
@@ -3315,10 +3347,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -3326,7 +3358,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6D4B\u8BD5\u6587\u5B57"
+  m_Text: "\t\t\t\t\t\t\t\t\t\t\u4E00\u4E2A\u6765\u81EA\u840C\u65B0\u5236\u4F5C\u56E2\u961F\u7684\u672A\u6765\u6E38\u620F\u5236\u4F5C\u4EBA\u5927\u8D5B\u53C2\u8D5B\u4F5C\u54C1\u3002\r\n\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u7A0B\u5E8F\r\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u6797\u4EF2\u8C6A--\u9999\u6E2F\u4E2D\u6587\u5927\u5B66\uFF08\u6DF1\u5733\uFF09\r\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u7F8E\u672F\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u9648\u82B7\u6615--\u5929\u6D25\u7F8E\u672F\u5B66\u9662\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u738B\u4F73\u9716--\u5929\u6D25\u7F8E\u672F\u5B66\u9662\r\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u7B56\u5212\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u90ED\u82B7\u6021--\u4E2D\u56FD\u5730\u8D28\u5927\u5B66\uFF08\u6B66\u6C49\uFF09\r\n\r\n\t\t\t\t\t\t\u7ECF\u8FC7\u4E00\u4E2A\u591A\u6708\u7684\u5FD9\u788C\u5236\u4F5C\uFF0C\u8FD9\u4E2A\u4F5C\u54C1\u662F\u6211\u4EEC\u56E2\u961F\u5408\u4F5C\u7684\u7ED3\u6676\u3002\n\t\t\t\t\t\t\u4E00\u7FA4\u6CA1\u6709\u5236\u4F5C\u6E38\u620F\u7ECF\u9A8C\u7684\u5C0F\u4F19\u4F34\u4ECE\u65E0\u5230\u6709\u7684\u6478\u722C\u6EDA\u6253\uFF0C\n\t\t\t\t\t\t\u6700\u7EC8\u6709\u4E86\u8FD9\u6837\u7684\u6210\u54C1\uFF0C\u540C\u65F6\u4E5F\u6536\u83B7\u4E86\u77E5\u8BC6\u4E0E\u53CB\u8C0A\u3002\r\n\t\t\t\t\t\t\u611F\u8C22\u4E3B\u529E\u65B9\u5409\u6BD4\u7279&\u96F7\u9706\u6E38\u620F\u63D0\u4F9B\u8FD9\u6837\u7684\u821E\u53F0\u3002\r\n\t\t\t\t\t\t\u611F\u8C22\u867E\u4EC1\u732A\u5FC3\uFF0Ckipp\uFF0C\u59DC\u4E50\u7B49\u5C0F\u4F19\u4F34\u5728\u6E38\u620F\u5236\u4F5C\u8FC7\u7A0B\u4E2D\u63D0\u4F9B\u7684\u5DE8\u5927\u5E2E\u52A9\u3002\r\n\t\t\t\t\t\t\u611F\u8C22\u53C2\u4E0E\u6D4B\u8BD5\u7684\u6240\u6709\u73A9\u5BB6\u63D0\u4F9B\u7684\u6D4B\u8BD5\u53CD\u9988\u548C\u4FEE\u6539\u4FE1\u606F\u3002\r\n\t\t\t\t\t\t\u5728\u4ECA\u540E\u7684\u6E38\u620F\u5236\u4F5C\u751F\u6DAF\u91CC\uFF0C\u5E0C\u671B\u80FD\u4E3A\u5927\u5BB6\u5949\u732E\u66F4\u591A\u66F4\u597D\u7684\u6E38\u620F\u3002\r\n\r\n\t\t\t\t\t\t\u8C22\u8C22\u4F60\u4EEC\u73A9\u6211\u4EEC\u7684\u6E38\u620F\uFF01\r\n\t\t\t\t\t\t\t\t\t\t                                                 
+    \t\t\t\t\t\u672C\u6765\u8D85\u5F3A\u5374\u8FC7\u5206\u8C28\u614E\r\n"
 --- !u!222 &2142469099
 CanvasRenderer:
   m_ObjectHideFlags: 0
