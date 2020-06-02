@@ -47,16 +47,6 @@ public class CharacterControl2D : MonoBehaviour
                         OnLandEvent.Invoke();
                 }
             }
-            Collider2D[] colliders2 = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius+0.2f, BOSSMask);//13是boss躯干的层级
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                if (colliders[i].gameObject != gameObject)
-                {
-                    m_Grounded = true;
-                    if (!wasGrounded)
-                        OnLandEvent.Invoke();
-                }
-            }
         }
     }
     public void Move(float move,bool jump)
